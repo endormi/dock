@@ -12,6 +12,8 @@ services:
     volumes:
       - ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
+    networks:
+      - loki_net
 
   grafana:
     image: grafana/grafana
@@ -29,6 +31,8 @@ services:
     #   GF_AUTH_DISABLE_LOGIN_FORM: "true"
     depends_on:
       - prometheus
+    networks:
+      - loki_net
 
   # Uncomment if you want to use
   # node-exporter on the same machine
@@ -44,3 +48,27 @@ services:
   #   restart: unless-stopped
   #   volumes:
   #     - '/:/host:ro,rslave'
+
+  promtail:
+    image: grafana/promtail
+    restart: always
+    volumes:
+      - /var/log:/var/log
+      - ${PWD}/promtail/promtail.yml:/etc/promtail/docker-config.yaml
+    depends_on:
+      - loki
+    networks:
+      - loki_net
+
+  loki:
+    image: grafana/loki
+    ports:
+      - 3100:3100
+    restart: always
+    volumes:
+      - ${PWD}/loki/loki.yml:/etc/loki/local-config.yaml
+    networks:
+      - loki_net
+
+networks:
+  loki_net:
