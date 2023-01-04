@@ -2,7 +2,7 @@
 
 Uses:
 
-- Grafana, Prometheus, Loki and Promtail.
+- Grafana, Prometheus, Loki, Promtail and cAdvisor.
 
 ## TODO
 

@@ -43,11 +43,24 @@ services:
   #     - 9100:9100
   #   command:
   #     - '--path.rootfs=/host'
-  #   network_mode: host
-  #   pid: host
-  #   restart: unless-stopped
   #   volumes:
   #     - '/:/host:ro,rslave'
+  #   restart: unless-stopped
+  #   networks:
+  #     - loki_net
+
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   restart: always
+  #   networks:
+  #     - loki_net
 
   promtail:
     image: grafana/promtail
