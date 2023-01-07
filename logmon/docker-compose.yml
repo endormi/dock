@@ -3,6 +3,7 @@ version: '3'
 volumes:
   prometheus_data: {}
   grafana_data: {}
+  alertmanager_data: {}
 
 services:
   prometheus:
@@ -61,6 +62,18 @@ services:
   #   restart: always
   #   networks:
   #     - loki_net
+
+  alertmanager:
+    image: prom/alertmanager
+    restart: unless-stopped
+    ports:
+      - 9093:9093
+    restart: unless-stopped
+    volumes:
+      - alertmanager_data:/data
+      - ${PWD}/alertmanager/:/etc/alertmanager/
+    networks:
+      - loki_net
 
   promtail:
     image: grafana/promtail

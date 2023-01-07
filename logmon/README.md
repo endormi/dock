@@ -2,9 +2,8 @@
 
 Uses:
 
-- Grafana, Prometheus, Loki, Promtail and cAdvisor.
+- Grafana, Prometheus, Loki, Promtail, cAdvisor and alertmanager.
 
 ## TODO
 
-- Add alertmanager
 - Log docker logs
