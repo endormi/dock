@@ -1,0 +1,19 @@
+name: Update Year
+
+on:
+  schedule:
+    - cron: "0 1 1 1 *" # 01:00 on January 1
+
+jobs:
+  update_year:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Update year in LICENSE
+        uses: endormi/yearplusplus@v2
+        with:
+          files: 'LICENSE'
+          username: 'Year++'
+          email: '<>'
